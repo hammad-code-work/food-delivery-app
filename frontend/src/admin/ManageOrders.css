@@ -1,0 +1,496 @@
+/* ============================================
+   FILE: frontend/src/admin/ManageOrders.css
+   PURPOSE: Styles for the Manage Orders admin page
+   Covers: order cards, expand/collapse, status badges,
+           filter tabs, action buttons
+   ============================================ */
+
+/* ---- Page Header Row ---- */
+.orders-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Refresh button */
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 18px;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.refresh-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-light);
+}
+
+/* ---- Status Filter Tabs ---- */
+.status-filter-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filter-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-tab:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.filter-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Count badge inside each tab */
+.tab-count {
+  background: rgba(0,0,0,0.1);
+  padding: 1px 7px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+}
+
+.filter-tab.active .tab-count {
+  background: rgba(255,255,255,0.25);
+}
+
+/* ---- Orders List ---- */
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- Individual Order Card ---- */
+.order-card {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.order-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Collapsed Header Row (always visible) ---- */
+.order-card-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.order-card-header:hover {
+  background: #fafafa;
+}
+
+/* Order ID + date */
+.order-id-section {
+  min-width: 110px;
+}
+
+.order-id {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: 0.03em;
+}
+
+.order-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* Customer name + item count (middle) */
+.order-customer-brief {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.order-customer-name,
+.order-items-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.order-customer-name {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+/* Right side: total + badge + chevron */
+.order-card-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.order-total {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Expand/collapse arrow */
+.chevron-icon {
+  color: var(--text-muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.chevron-icon.rotated {
+  transform: rotate(180deg); /* Points up when expanded */
+}
+
+/* ---- Expanded Details Section ---- */
+.order-details {
+  border-top: 1.5px solid var(--border);
+  padding: 20px;
+  background: #fafafa;
+  animation: expandDown 0.2s ease;
+}
+
+@keyframes expandDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Two column grid: customer info | items list */
+.order-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+/* ---- Customer Info Column ---- */
+.order-customer-info h4,
+.order-items-list h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+}
+
+.customer-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.875rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.customer-detail-row svg {
+  color: var(--primary);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Phone link style */
+.customer-detail-row a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.customer-detail-row a:hover {
+  text-decoration: underline;
+}
+
+/* Special notes box */
+.order-notes {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+/* ---- Items List Column ---- */
+.order-item-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+.order-item-row:last-child {
+  border-bottom: none;
+}
+
+.order-item-name {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.order-item-qty {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  background: var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.order-item-price {
+  font-weight: 600;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* Total row at bottom of items */
+.order-total-row {
+  border-top: 2px solid var(--border) !important;
+  border-bottom: none !important;
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.order-grand-total {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* ---- Order Action Bar ---- */
+.order-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 16px;
+  border-top: 1.5px solid var(--border);
+}
+
+/* Status dropdown group */
+.status-update-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-update-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.status-select {
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text);
+  background: white;
+  cursor: pointer;
+  outline: none;
+  transition: var(--transition);
+}
+
+.status-select:focus {
+  border-color: var(--primary);
+}
+
+/* Quick advance button (e.g. "Mark as Preparing →") */
+.advance-btn {
+  padding: 9px 18px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.advance-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.advance-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Delete button */
+.delete-order-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 16px;
+  background: #fff0f0;
+  color: var(--error);
+  border: 1.5px solid #fecaca;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-left: auto; /* Push to the right */
+}
+
+.delete-order-btn:hover {
+  background: var(--error);
+  color: white;
+  border-color: var(--error);
+}
+
+/* Delete confirmation inline row */
+.delete-confirm-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.delete-confirm-row span {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--error);
+}
+
+.confirm-del-btn {
+  padding: 7px 14px;
+  background: var(--error);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.confirm-del-btn:hover { background: #b91c1c; }
+
+.cancel-del-btn {
+  padding: 7px 14px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cancel-del-btn:hover {
+  background: var(--border);
+  color: var(--text);
+}
+
+/* ---- Empty State ---- */
+.orders-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.orders-empty h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.orders-empty p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .order-card-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .order-details-grid {
+    grid-template-columns: 1fr; /* Stack columns on mobile */
+  }
+
+  .order-card-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .order-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .delete-order-btn,
+  .delete-confirm-row {
+    margin-left: 0;
+  }
+
+  .status-filter-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+  }
+}

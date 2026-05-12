@@ -1,0 +1,94 @@
+/* ============================================
+   FILE: frontend/src/App.css
+   PURPOSE: App-level layout styles
+   These styles apply to the top-level structure
+   of the app — layout wrappers, page transitions, etc.
+   Component-specific styles live in their own .css files
+   ============================================ */
+
+/* ---- Root App Wrapper ---- */
+#root {
+  /* Makes the app take full viewport height */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- Customer Layout Main Content ---- */
+/* The <main> tag in CustomerLayout wraps all customer pages */
+main {
+  flex: 1; /* Fills remaining space between navbar and bottom of screen */
+}
+
+/* ---- Page Transition Animation ---- */
+/* Applies a fade-in whenever a new page loads */
+.page-enter {
+  animation: pageFadeIn 0.25s ease;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Footer Spacer ---- */
+/* Prevents content from being flush at the bottom on short pages */
+.page-bottom-spacer {
+  height: 60px;
+}
+
+/* ---- Global Error / Not Found State ---- */
+.not-found-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+  gap: 16px;
+  padding: 40px 20px;
+}
+
+.not-found-page h1 {
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.not-found-page h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.not-found-page p {
+  color: var(--text-muted);
+  max-width: 360px;
+}
+
+/* ---- Toast Notification Overrides ---- */
+/* react-hot-toast renders its container here — we fine-tune position */
+.react-hot-toast-container {
+  z-index: 9999 !important; /* Always on top */
+}
+
+/* ---- Utility: Full Height Section ---- */
+.full-height {
+  min-height: calc(100vh - 68px); /* 68px = navbar height */
+}
+
+/* ---- Utility: Center content block ---- */
+.centered-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}

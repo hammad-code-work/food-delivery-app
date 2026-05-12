@@ -1,0 +1,174 @@
+/* ============================================
+   FILE: frontend/src/admin/AdminLogin.css
+   PURPOSE: Styles for the admin login page
+   ============================================ */
+
+.admin-login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin-login-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 48px 44px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  animation: slideUpCard 0.3s ease;
+}
+
+@keyframes slideUpCard {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Logo at top */
+.admin-login-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.admin-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--primary);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-login-logo h1 {
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.admin-login-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.admin-login-header h2 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.admin-login-header p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* Form */
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-form-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* Input with icon inside */
+.input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none; /* Don't block clicks on input */
+}
+
+.input-wrap input {
+  width: 100%;
+  padding: 13px 16px 13px 42px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  background: var(--bg);
+  color: var(--text);
+  outline: none;
+  transition: var(--transition);
+}
+
+.input-wrap input:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(255,69,0,0.1);
+}
+
+/* Password show/hide button */
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  transition: var(--transition);
+}
+
+.password-toggle:hover {
+  color: var(--primary);
+}
+
+/* Login button */
+.admin-login-btn {
+  padding: 14px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 4px;
+}
+
+.admin-login-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.admin-login-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Hint text */
+.admin-login-hint {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 20px;
+  padding: 10px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-family: monospace;
+}
