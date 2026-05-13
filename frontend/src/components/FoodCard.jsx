@@ -1,7 +1,8 @@
 // ============================================
 // FILE: frontend/src/components/FoodCard.jsx
 // PURPOSE: Display a single food item as a card
-// Shows image, name, category, price, and Add to Cart button
+// UPDATED: After clicking Add → shows "Added!" for 1 second
+//          then automatically opens the cart sidebar
 // ============================================
 
 import React, { useState } from "react";
@@ -10,44 +11,42 @@ import { useCart } from "../context/CartContext";
 import "./FoodCard.css";
 
 const FoodCard = ({ food }) => {
-  const { addToCart } = useCart();
-  const [added, setAdded] = useState(false); // Show "Added!" feedback
+  const { addToCart, setIsCartOpen } = useCart();
+  const [added, setAdded] = useState(false);
 
-  // When user clicks "Add to Cart"
   const handleAddToCart = () => {
-    addToCart(food); // Add to global cart state
+    addToCart(food); // Add item to cart
 
-    // Show a checkmark for 1.5 seconds to confirm
+    // Step 1: Show "Added!" with checkmark
     setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
+
+    // Step 2: After 1 second, reset button AND open cart sidebar
+    setTimeout(() => {
+      setAdded(false);
+      setIsCartOpen(true); // ← This opens the cart popup
+    }, 1000);
   };
 
-  // Build the image URL — images are served from backend uploads folder
   const imageUrl = `${import.meta.env.VITE_API_URL}/uploads/${food.image}`;
 
   return (
     <div className="food-card">
-      {/* Food Image */}
       <div className="food-card-image-wrap">
         <img
           src={imageUrl}
           alt={food.name}
           className="food-card-image"
           onError={(e) => {
-            // Show placeholder if image fails to load
             e.target.src = "https://via.placeholder.com/300x200?text=Food";
           }}
         />
-        {/* Category pill on top of image */}
         <span className="food-card-category">{food.category}</span>
       </div>
 
-      {/* Food Info */}
       <div className="food-card-body">
         <h3 className="food-card-name">{food.name}</h3>
         <p className="food-card-desc">{food.description}</p>
 
-        {/* Price + Add to Cart */}
         <div className="food-card-footer">
           <span className="food-card-price">Rs. {food.price}</span>
 
