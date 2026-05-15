@@ -1,30 +1,29 @@
 // ============================================
 // FILE: frontend/src/components/FoodCard.jsx
-// PURPOSE: Display a single food item as a card
-// UPDATED: After clicking Add → shows "Added!" for 1 second
-//          then automatically opens the cart sidebar
+// UPDATED: Button stays green with quantity controls
+//          if item is already in cart
 // ============================================
 
-import React, { useState } from "react";
-import { Plus, Check } from "lucide-react";
+import React from "react";
+import { Plus, Check, Minus } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import "./FoodCard.css";
 
 const FoodCard = ({ food }) => {
-  const { addToCart, setIsCartOpen } = useCart();
-  const [added, setAdded] = useState(false);
+  const { addToCart, increaseQuantity, decreaseQuantity, cartItems, setIsCartOpen } = useCart();
 
-  const handleAddToCart = () => {
-    addToCart(food); // Add item to cart
+  // Check if this food item is already in the cart
+  const cartItem = cartItems.find((item) => item._id === food._id);
+  const isInCart = !!cartItem;          // true if item exists in cart
+  const quantity = cartItem?.quantity || 0; // how many are in cart
 
-    // Step 1: Show "Added!" with checkmark
-    setAdded(true);
-
-    // Step 2: After 1 second, reset button AND open cart sidebar
+  // First time adding to cart
+  const handleAdd = () => {
+    addToCart(food);
+    // Open cart after adding
     setTimeout(() => {
-      setAdded(false);
-      setIsCartOpen(true); // ← This opens the cart popup
-    }, 1000);
+      setIsCartOpen(true);
+    }, 800);
   };
 
   const imageUrl = `${import.meta.env.VITE_API_URL}/uploads/${food.image}`;
@@ -41,6 +40,13 @@ const FoodCard = ({ food }) => {
           }}
         />
         <span className="food-card-category">{food.category}</span>
+
+        {/* Show green "In Cart" badge on image if item is in cart */}
+        {isInCart && (
+          <span className="in-cart-badge">
+            <Check size={11} /> In Cart
+          </span>
+        )}
       </div>
 
       <div className="food-card-body">
@@ -50,22 +56,40 @@ const FoodCard = ({ food }) => {
         <div className="food-card-footer">
           <span className="food-card-price">Rs. {food.price}</span>
 
-          <button
-            className={`add-to-cart-btn ${added ? "added" : ""}`}
-            onClick={handleAddToCart}
-          >
-            {added ? (
-              <>
-                <Check size={16} />
-                Added!
-              </>
-            ) : (
-              <>
-                <Plus size={16} />
-                Add
-              </>
-            )}
-          </button>
+          {/* ---- If item NOT in cart: show Add button ---- */}
+          {!isInCart ? (
+            <button className="add-to-cart-btn" onClick={handleAdd}>
+              <Plus size={16} />
+              Add
+            </button>
+          ) : (
+            /* ---- If item IS in cart: show green quantity controls ---- */
+            <div className="qty-controls">
+              {/* Minus button — decrease quantity */}
+              <button
+                className="qty-control-btn"
+                onClick={() => decreaseQuantity(food._id)}
+                title="Remove one"
+              >
+                <Minus size={14} />
+              </button>
+
+              {/* Show current quantity in green */}
+              <span className="qty-display">
+                <Check size={12} />
+                {quantity}
+              </span>
+
+              {/* Plus button — add more */}
+              <button
+                className="qty-control-btn"
+                onClick={() => increaseQuantity(food._id)}
+                title="Add one more"
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
